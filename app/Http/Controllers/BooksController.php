@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Book;
 
 class BooksController extends Controller
 {
@@ -11,7 +12,9 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::all();
+
+        return view('books.index')->withBooks($books);
     }
 
     /**
@@ -19,7 +22,7 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.create');
     }
 
     /**
@@ -27,7 +30,21 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'author' => 'required'
+        ]);
+
+        $book = new Book;
+        $book->title = $request->input('title');
+        $book->author = $request->input('author');
+        $book->publisher = $request->input('publisher') ?? '';
+        $book->year_of_publication = $request->input('year_of_publication') ?? '2000';
+        $book->genre = $request->input('genre') ?? '';
+        $book->book_cover = $request->input('book_cover') ?? '';
+        $book->save();
+
+        return redirect('/books')->with('success', 'Book Created');
     }
 
     /**
@@ -35,7 +52,9 @@ class BooksController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $book = Book::find($id);
+
+        return view('books.show')->withBook($book);
     }
 
     /**
@@ -43,7 +62,9 @@ class BooksController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $book = Book::find($id);
+
+        return view('books.edit')->withBook($book);
     }
 
     /**
@@ -51,7 +72,17 @@ class BooksController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $book = Book::find($id);
+        $book->title = $request->input('title');
+        $book->author = $request->input('author');
+        $book->publisher = $request->input('publisher') ?? '';
+        $book->year_of_publication = $request->input('year_of_publication') ?? '2000';
+        $book->genre = $request->input('genre') ?? '';
+        $book->book_cover = $request->input('book_cover') ?? '';
+        $book->save();
+
+        return redirect('/books')->with('success', 'Book Updated');
+
     }
 
     /**
@@ -59,6 +90,9 @@ class BooksController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $book = Book::find($id);
+        $book->delete();
+
+        return redirect('/books')->with('success', 'Book Removed');
     }
 }
