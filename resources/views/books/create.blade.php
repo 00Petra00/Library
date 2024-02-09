@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Create Book</h1>
-    {!! Form::open(['action' => ['App\Http\Controllers\BooksController@store'], 'method' => 'POST']) !!}
+    {!! Form::open(['action' => ['App\Http\Controllers\BooksController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
     <div class="form-group ">
         {{Form::label('title','Title')}}
         <div>
@@ -27,7 +27,10 @@
     </div>
     <div class="form-group">
         {{Form::label('book_cover','Book Cover')}}
-        {{Form::text('book_cover', '',['class' => 'form-control', 'placeholder' => ''])}}
+        {{-- {{Form::file('book_cover', '',['class' => 'form-control'])}} --}}
+        <div>
+        <input type="file"  name="book_cover" class="form-controler">
+        </div>
     </div>
     {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
 {!! Form::close() !!}
