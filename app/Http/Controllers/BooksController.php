@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Book;
+use App\Models\Genre;
 
 class BooksController extends Controller
 {
@@ -14,6 +15,14 @@ class BooksController extends Controller
     public function index()
     {
         $books = Book::all();
+        if(request()->has('search')){
+            $search = request()->get('search');
+            $books = Book::where('title', 'like', '%'.$search.'%')
+                            ->orWhere('author', 'like', '%'.$search.'%')
+                            ->orWhere('publisher', 'like', '%'.$search.'%')
+                            ->get();
+            //return $books;
+        }
 
         return view('books.index')->withBooks($books);
     }
@@ -23,7 +32,8 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        $genres = Genre::all();
+        return view('books.create')->withGenres($genres);
     }
 
     /**
@@ -45,14 +55,24 @@ class BooksController extends Controller
             $file->move($path, $filename);
         }
 
+
         $book = new Book;
         $book->title = $request->input('title');
         $book->author = $request->input('author');
         $book->publisher = $request->input('publisher') ?? '';
         $book->year_of_publication = $request->input('year_of_publication') ?? '2000';
-        $book->genre = $request->input('genre') ?? '';
         $book->book_cover = $path.$filename;
         $book->save();
+
+        $selectedGenres = $request->input('selectedGenres');
+        if (!empty($selectedGenres)) {
+            foreach ($selectedGenres as $genreId) {
+                $genre = Genre::find($genreId);
+                if ($genre) {
+                    $book->genres()->attach($genreId);
+                }
+            }
+        }
 
         return redirect('/books')->with('success', 'Book Created');
     }

@@ -23,15 +23,28 @@
     </div>
     <div class="form-group">
         {{Form::label('genre','Genre')}}
-        {{Form::text('genre', '',['class' => 'form-control', 'placeholder' => 'fantasy'])}}
+        {{-- {{Form::text('genre', '',['class' => 'form-control', 'placeholder' => 'fantasy'])}} --}}
+        <select class="form-control" id="genres" name="selectedGenres[]" multiple="multiple">
+            @foreach($genres as $genre)
+            <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+        @endforeach
+        </select>
     </div>
     <div class="form-group">
         {{Form::label('book_cover','Book Cover')}}
         {{-- {{Form::file('book_cover', '',['class' => 'form-control'])}} --}}
         <div>
-        <input type="file"  name="book_cover" class="form-controler">
+        <input type="file" name="book_cover" class="form-controler">
         </div>
     </div>
     {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
 {!! Form::close() !!}
+
+<script>
+
+    $(document).ready(function(){
+        $('#genres').select2();
+    });
+
+</script>
 @endsection

@@ -12,4 +12,9 @@ class Book extends Model
     protected $table = 'books';
     public $primaryKey = 'id';
     public $timestamps = true;
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
 }
