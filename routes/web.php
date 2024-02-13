@@ -16,3 +16,4 @@ use App\Http\Controllers\BooksController;
 
 Route::get('/', 'App\Http\Controllers\BooksController@index');
 Route::resource('books', BooksController::class);
+Route::get('/filter-books', [BooksController::class, 'filter'])->name('filterBooks');

@@ -24,7 +24,19 @@ class BooksController extends Controller
             //return $books;
         }
 
-        return view('books.index')->withBooks($books);
+        $genres = Genre::all();
+
+        return view('books.index')->withBooks($books)->withGenres($genres);
+    }
+
+    public function filter(Request $request)
+    {
+        $selectedGenres = $request->input('genres');
+        $books = Book::whereHas('genres', function ($query) use ($selectedGenres) {
+            $query->whereIn('id', $selectedGenres);
+        })->get();
+        $genres = Genre::all();
+        return view('books.index', compact('books', 'genres'));
     }
 
     /**
