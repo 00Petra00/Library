@@ -20,6 +20,7 @@
     </head>
     <body>
         @include('inc.navbar')
+            @yield('aside')
         <main class="py-4">
             <div class="container">
             @include('inc.messages')

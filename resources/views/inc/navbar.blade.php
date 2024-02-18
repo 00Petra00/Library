@@ -18,8 +18,10 @@
             {{-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> --}}
         {{-- </form> --}}
         {!! Form::open(['action' => ['App\Http\Controllers\BooksController@index'], 'method' => 'GET']) !!}
-            {{Form::text('search','' ,['class' => 'form-control w-100', 'placeholder' => 'Search'])}}
+        <div class="d-flex">
+            {{Form::text('search','' ,['class' => 'form-control w-100 d-flex-input', 'placeholder' => 'Search'])}}
             {{Form::submit('Submit', ['class' => 'btn btn-outline-success'])}}
+        </div>
         {!! Form::close() !!}
 
         </div>
