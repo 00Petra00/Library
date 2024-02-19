@@ -32,9 +32,11 @@ class BooksController extends Controller
     public function filter(Request $request)
     {
         $selectedGenres = $request->input('genres');
+        if(request()->has('all_genres')){$books = Book::all();}
+        else{
         $books = Book::whereHas('genres', function ($query) use ($selectedGenres) {
             $query->whereIn('id', $selectedGenres);
-        })->get();
+        })->get();}
         $genres = Genre::all();
         return view('books.index', compact('books', 'genres'));
     }
