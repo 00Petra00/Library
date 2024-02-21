@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Edit Book</h1>
-    {!! Form::open(['action' => ['App\Http\Controllers\BooksController@update', $book->id], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}
+    {!! Form::open(['id' => 'updateForm', 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}
     <div class="form-group ">
         {{Form::label('title','Title')}}
         <div>
@@ -42,7 +42,7 @@
         <div>
             <input type="file" name="book_cover" class="form-controler">
             <p>Current Image:</p>
-            <img class="image" src="{{asset($book->book_cover)}}" alt="Img">
+            <img id="bookCover" class="image" src="{{asset($book->book_cover)}}" alt="Img">
         </div>
     </div>
     {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
@@ -53,5 +53,32 @@
     $(document).ready(function(){
         $('#genres').select2();
     });
+
+    $(document).ready(function() {
+    $('#updateForm').submit(function(event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: '{{ action('App\Http\Controllers\BooksController@update', $book->id) }}',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+                alert('Book Updated');
+
+                var newBookCoverUrl = response.book_cover;
+                $('#bookCover').attr('src', newBookCoverUrl);
+
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+});
 </script>
 @endsection

@@ -156,7 +156,8 @@ class BooksController extends Controller
             $book->genres()->sync($selectedGenres);
         }
 
-        return redirect('/books')->with('success', 'Book Updated');
+        return response()->json(['success' => true, 'message' => 'Book updated successfully', 'book_cover' => asset($book->book_cover)]);
+       // return redirect('/books')->with('success', 'Book Updated');
 
     }
 
