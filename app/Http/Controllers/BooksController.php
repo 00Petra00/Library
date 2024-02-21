@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Book;
 use App\Models\Genre;
+use DB;
 
 class BooksController extends Controller
 {
@@ -73,19 +74,15 @@ class BooksController extends Controller
         $book = new Book;
         $book->title = $request->input('title');
         $book->author = $request->input('author');
-        $book->publisher = $request->input('publisher') ?? '';
-        $book->year_of_publication = $request->input('year_of_publication') ?? '2000';
+        $book->description = $request->input('description');
+        $book->publisher = $request->input('publisher');
+        $book->year_of_publication = $request->input('year_of_publication');
         $book->book_cover = $path.$filename;
         $book->save();
 
         $selectedGenres = $request->input('selectedGenres');
         if (!empty($selectedGenres)) {
-            foreach ($selectedGenres as $genreId) {
-                $genre = Genre::find($genreId);
-                if ($genre) {
-                    $book->genres()->attach($genreId);
-                }
-            }
+            $book->genres()->sync($selectedGenres);
         }
 
         return redirect('/books')->with('success', 'Book Created');
@@ -107,8 +104,13 @@ class BooksController extends Controller
     public function edit(string $id)
     {
         $book = Book::find($id);
+        $curr_genres = DB::table('book_genre')
+                    ->where('book_id', $book->id)->get()
+                    ->pluck('genre_id')
+                    ->toArray();
+        $genres = Genre::all();
 
-        return view('books.edit')->withBook($book);
+        return view('books.edit')->withBook($book)->withGenres($genres)->withCurrGenres($curr_genres);
     }
 
     /**
@@ -122,6 +124,8 @@ class BooksController extends Controller
             'book_cover' => 'nullable|mimes:png,jpg,jpeg,webp'
         ]);
 
+        $book = Book::find($id);
+
         if($request->has('book_cover')){
             $file = $request->file('book_cover');
             $extension = $file->getClientOriginalExtension();
@@ -129,20 +133,28 @@ class BooksController extends Controller
             $path = 'images/book_covers/';
             $file->move($path, $filename);
         }
+        else{
+            $path = $book->book_cover;
+            $filename = '';
+        }
 
-        $book = Book::find($id);
-
-        if(File::exists($book->book_cover)){
+        if(File::exists('book_cover')){
             File::delete($book->book_cover);
         }
 
         $book->title = $request->input('title');
         $book->author = $request->input('author');
-        $book->publisher = $request->input('publisher') ?? '';
-        $book->year_of_publication = $request->input('year_of_publication') ?? '2000';
-        $book->genre = $request->input('genre') ?? '';
+        $book->description = $request->input('description');
+        $book->publisher = $request->input('publisher');
+        $book->year_of_publication = $request->input('year_of_publication');
         $book->book_cover = $path.$filename;
         $book->save();
+
+        $book->genres()->detach();
+        $selectedGenres = $request->input('selectedGenres');
+        if (!empty($selectedGenres)) {
+            $book->genres()->sync($selectedGenres);
+        }
 
         return redirect('/books')->with('success', 'Book Updated');
 
