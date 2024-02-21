@@ -16,6 +16,15 @@ h5 {
     background-color:#f49c20 !important;
     border-color: #f49c20 !important;
 }
+.flag{
+    height: 30px;
+    width: 50px;
+    margin-right: 10px;
+}
+.flags{
+    right: 10px;
+    position: absolute;
+}
 aside {
     float: left;
     color: #fff;
@@ -34,7 +43,7 @@ text-decoration: none;
 -webkit-tap-highlight-color:transparent;
 }
 .title{
-margin-bottom: 30px;
+margin-bottom: 70px;
 }
 .book-title{
 color: black;
@@ -45,6 +54,7 @@ float: left;
 }
 .image{
 height: 160px;
+margin-bottom: 10px;
 }
 .show_image{
 height: 300px;
