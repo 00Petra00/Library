@@ -17,7 +17,7 @@ class GenresSeeder extends Seeder
             'name' => 'fantasy'
         ]);
         DB::table('genres')->insert([
-            'name' => 'science_fiction'
+            'name' => 'science fiction'
         ]);
         DB::table('genres')->insert([
             'name' => 'horror'
@@ -29,34 +29,34 @@ class GenresSeeder extends Seeder
             'name' => 'dystopian'
         ]);
         DB::table('genres')->insert([
-            'name' => 'action_adventure'
+            'name' => 'action adventure'
         ]);
         DB::table('genres')->insert([
             'name' => 'mystery'
         ]);
         DB::table('genres')->insert([
-            'name' => 'thriller_suspense'
+            'name' => 'thriller suspense'
         ]);
         DB::table('genres')->insert([
-            'name' => 'historical_fiction'
+            'name' => 'historical fiction'
         ]);
         DB::table('genres')->insert([
-            'name' => 'women’s_fiction'
+            'name' => 'women’s fiction'
         ]);
         DB::table('genres')->insert([
-            'name' => 'literary_fiction'
+            'name' => 'literary fiction'
         ]);
         DB::table('genres')->insert([
-            'name' => 'contemporary_fiction'
+            'name' => 'contemporary fiction'
         ]);
         DB::table('genres')->insert([
-            'name' => 'magical_realism'
+            'name' => 'magical realism'
         ]);
         DB::table('genres')->insert([
-            'name' => 'graphic_novel'
+            'name' => 'graphic novel'
         ]);
         DB::table('genres')->insert([
-            'name' => 'short_story'
+            'name' => 'short story'
         ]);
 
     }
