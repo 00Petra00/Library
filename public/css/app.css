@@ -5,6 +5,17 @@
 h6 {
     color: darkgrey !important;
 }
+h5 {
+    color: rgb(100, 98, 98) !important;
+}
+.btn-secondary{
+    background-color:#f3b359 !important;
+    border-color: #f3b359 !important;
+}
+.btn-danger{
+    background-color:#f49c20 !important;
+    border-color: #f49c20 !important;
+}
 aside {
     float: left;
     color: #fff;
@@ -12,33 +23,49 @@ aside {
     padding-left: 20px;
     background-image: linear-gradient(30deg , #f3b359, #f5d090);
     border-top-right-radius: 80px;
-    margin: 40px 0 0 0 !important;
-  }
-  aside label {
-    font-size: 16px;
-    color: black;
-    padding: 12px;
-    padding-left: 30px;
-    text-decoration: none;
-    -webkit-tap-highlight-color:transparent;
-  }
-  .title{
-    margin-bottom: 30px;
-  }
-  .book-title{
-    color: black;
-    text-decoration: none;
-  }
-  .float-left{
-    float: left;
-  }
-  .image{
-    height: 160px;
-  }
-  .d-flex-input{
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  .pointer{
-    cursor: pointer;
-  }
+    margin: 50px 50px 0 0 !important;
+}
+aside label {
+font-size: 16px;
+color: black;
+padding: 12px;
+padding-left: 30px;
+text-decoration: none;
+-webkit-tap-highlight-color:transparent;
+}
+.title{
+margin-bottom: 30px;
+}
+.book-title{
+color: black;
+text-decoration: none;
+}
+.float-left{
+float: left;
+}
+.image{
+height: 160px;
+}
+.show_image{
+height: 300px;
+}
+.d-flex-input{
+margin-left: 5px;
+margin-right: 5px;
+}
+.pointer{
+cursor: pointer;
+}
+.description{
+max-width: 500px;
+}
+.description p{
+margin-left: 50px;
+margin-bottom: 0;
+}
+.description h4{
+margin-left: 50px;
+}
+.description p:first-of-type{
+margin-bottom: 10px !important;
+}
