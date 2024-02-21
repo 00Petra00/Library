@@ -1,11 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{$book->title}}</h1>
+
+    <h2>{{$book->title}}</h2>
     <h3>{{$book->author}}</h3>
-    <h6>{{$book->publisher}}</h6>
-    <h6>{{$book->year_of_publication}}</h6>
-    <img class="image" src="{{asset($book->book_cover)}}">
+
+     <div class="d-flex">
+        <img class="show_image" src="{{asset($book->book_cover)}}">
+        <div class="description">
+            <h4>About the book</h4>
+            <p>{{$book->description}}</p>
+            <p>Publisher: {{$book->publisher}}</p>
+            <p>Year of publication: {{$book->year_of_publication}}</p>
+        </div>
+     </div>
+     <h6>Created at: {{$book->created_at}}</h6>
+     <h6>Last update: {{$book->updated_at}}</h6>
+
     <div  aria-label="Basic example">
         {!! Form::open(['action' => ['App\Http\Controllers\BooksController@destroy', $book->id], 'method' => 'POST']) !!}
                 <a href="{{$book->id}}/edit" class="btn btn-secondary">Edit</a>

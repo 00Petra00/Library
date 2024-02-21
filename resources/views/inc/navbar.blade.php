@@ -8,22 +8,21 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-            <a class="nav-link" href="/books/create">Create Book</a>
-            </li>
-        </ul>
-        {{-- <form class="form-inline my-2 my-lg-0"> --}}
-            {{-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> --}}
-            {{-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> --}}
-        {{-- </form> --}}
-        {!! Form::open(['action' => ['App\Http\Controllers\BooksController@index'], 'method' => 'GET']) !!}
-        <div class="d-flex">
-            {{Form::text('search','' ,['class' => 'form-control w-100 d-flex-input', 'placeholder' => 'Search'])}}
-            {{Form::submit('Submit', ['class' => 'btn btn-outline-success'])}}
-        </div>
-        {!! Form::close() !!}
-
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="/books/create">Create Book</a>
+                </li>
+            </ul>
+            {!! Form::open(['action' => ['App\Http\Controllers\BooksController@index'], 'method' => 'GET']) !!}
+            <div class="d-flex">
+                {{Form::text('search','' ,['class' => 'form-control w-100 d-flex-input', 'placeholder' => 'Search'])}}
+                {{Form::submit('Submit', ['class' => 'btn btn-outline-success'])}}
+            </div>
+            {!! Form::close() !!}
+            <div class="flags">
+                <img class="flag" src="images/flags/hu_flag.jpg">
+                <img class="flag" src="images/flags/en_flag.jpg">
+            </div>
         </div>
     </div>
   </nav>

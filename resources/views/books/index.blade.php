@@ -22,9 +22,9 @@
     <div class="row">
         @foreach ($books as $book)
         <div class="col-sm pointer" onclick="window.location.href = '/books/{{$book->id}}';">
-            <h3>{{$book->title}}</h3>
-            <h6>{{$book->title}}</h6>
             <a href="/books/{{$book->id}}"><img class="image" src="{{asset($book->book_cover)}}" alt="Img"></a>
+            <h5>{{$book->title}}</h5>
+            <h6>{{$book->author}}</h6>
         </div>
         @endforeach
     </div>
