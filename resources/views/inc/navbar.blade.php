@@ -20,8 +20,8 @@
             </div>
             {!! Form::close() !!}
             <div class="flags">
-                <img class="flag" src="images/flags/hu_flag.jpg">
-                <img class="flag" src="images/flags/en_flag.jpg">
+                <img class="flag" src="/images/flags/hu_flag.jpg">
+                <img class="flag" src="/images/flags/en_flag.jpg">
             </div>
         </div>
     </div>
