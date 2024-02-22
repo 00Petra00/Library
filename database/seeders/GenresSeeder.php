@@ -58,6 +58,24 @@ class GenresSeeder extends Seeder
         DB::table('genres')->insert([
             'name' => 'short story'
         ]);
+        DB::table('genres')->insert([
+            'name' => 'self-help'
+        ]);
+        DB::table('genres')->insert([
+            'name' => 'biography'
+        ]);
+        DB::table('genres')->insert([
+            'name' => 'lifestyle'
+        ]);
+        DB::table('genres')->insert([
+            'name' => 'psychology'
+        ]);
+        DB::table('genres')->insert([
+            'name' => 'autobiography'
+        ]);
+        DB::table('genres')->insert([
+            'name' => 'humor'
+        ]);
 
     }
 }
