@@ -25,7 +25,7 @@ class BooksController extends Controller
             //return $books;
         }
 
-        $genres = Genre::all();
+        $genres = Genre::orderBy('name')->get();
 
         return view('books.index')->withBooks($books)->withGenres($genres);
     }

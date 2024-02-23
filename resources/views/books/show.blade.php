@@ -19,9 +19,9 @@
 
     <div  aria-label="Basic example">
         {!! Form::open(['action' => ['App\Http\Controllers\BooksController@destroy', $book->id], 'method' => 'POST']) !!}
-                <a href="{{$book->id}}/edit" class="btn btn-secondary">Edit</a>
+                <a href="{{$book->id}}/edit" class="btn btn-outline-secondary">Edit</a>
             {{Form::hidden('_method', 'DELETE')}}
-            {{Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => "return confirm('Are you sure you want to delete this book?')"])}}
+            {{Form::submit('Delete', ['class' => 'btn btn-outline-danger', 'onclick' => "return confirm('Are you sure you want to delete this book?')"])}}
         {!! Form::close() !!}
     </div>
 @endsection

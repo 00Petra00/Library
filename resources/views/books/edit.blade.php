@@ -45,8 +45,8 @@
             <img id="bookCover" class="image" src="{{asset($book->book_cover)}}" alt="Img">
         </div>
     </div>
-    {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
-    <a href="/books/{{$book->id}}" class="btn btn-secondary">Go Back</a>
+    {{Form::submit('Submit', ['class' => 'btn btn-outline-success btn-margin'])}}
+    <a href="/books/{{$book->id}}" class="btn btn-outline-secondary btn-margin">Go Back</a>
 {!! Form::close() !!}
 
 <script>

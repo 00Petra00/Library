@@ -41,7 +41,7 @@
         <input type="file" name="book_cover" class="form-controler">
         </div>
     </div>
-    {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
+    {{Form::submit('Submit', ['class' => 'btn btn-outline-success btn-margin'])}}
 {!! Form::close() !!}
 
 <script>
