@@ -10,13 +10,13 @@
             <input type="checkbox" id="genre_{{ $genre->id }}" name="genres[]" value="{{ $genre->id }}">
             <label for="genre_{{ $genre->id }}">{{ $genre->name }}</label><br>
         @endforeach
-        <button class="btn btn-outline-success" type="submit">Filter</button>
+        <button class="btn btn-outline-success btn-margin" type="submit">Filter</button>
     </form>
 </aside>
 @endsection
 @section('content')
 <div class="jumbotron text-center">
-    <h1 class="title">Welcome To Library</h1>
+    <h1 class="title">Library</h1>
 
     @if (count($books) > 0)
     <div class="row">

@@ -15,7 +15,7 @@
             </ul>
             {!! Form::open(['action' => ['App\Http\Controllers\BooksController@index'], 'method' => 'GET']) !!}
             <div class="d-flex">
-                {{Form::text('search','' ,['class' => 'form-control w-100 d-flex-input', 'placeholder' => 'Search'])}}
+                {{Form::text('search','' ,['class' => 'form-control d-flex-input', 'placeholder' => 'Search books, authors, publishers'])}}
                 {{Form::submit('Submit', ['class' => 'btn btn-outline-success'])}}
             </div>
             {!! Form::close() !!}
