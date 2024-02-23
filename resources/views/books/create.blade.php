@@ -14,6 +14,10 @@
         {{Form::text('author','',['class' => 'form-control', 'placeholder' => 'J. K. Rowling'])}}
     </div>
     <div class="form-group">
+        {{Form::label('description','Description')}}
+        {{Form::textarea('description', '',['class' => 'form-control', 'placeholder' => 'About the book'])}}
+    </div>
+    <div class="form-group">
         {{Form::label('publisher','Publisher')}}
         {{Form::text('publisher', '',['class' => 'form-control', 'placeholder' => 'Books LLC'])}}
     </div>
@@ -41,10 +45,8 @@
 {!! Form::close() !!}
 
 <script>
-
     $(document).ready(function(){
         $('#genres').select2();
     });
-
 </script>
 @endsection
