@@ -37,23 +37,29 @@ h5 {
     right: 10px;
     position: absolute;
 }
-aside {
+.aside {
     float: left;
     color: #fff;
     width: 250px;
     padding-top: 15px;
     padding-left: 30px;
-    background-color: #f1c0a3;
+    background-color: rgb(222, 220, 217);
     border-top-right-radius: 80px;
     margin: 50px 50px 0 0 !important;
 }
-aside label {
+.aside label {
 font-size: 16px;
 color: black;
 padding-top: 8px;
 padding-left: 10px;
 text-decoration: none;
 -webkit-tap-highlight-color:transparent;
+}
+.offcanvas{
+    background-color: rgb(222, 220, 217) !important;
+}
+.offcanvas-body{
+    width: 99% !important;
 }
 .title{
 margin-bottom: 70px;
@@ -72,10 +78,26 @@ margin-bottom: 10px;
 .show_image{
 height: 300px;
 }
+@media only screen and (max-width: 600px) {
+    .show_image{
+        height: 200px;
+    }
+    .description p{
+        margin: 20px !important;
+    }
+    .description h4{
+        margin-left: 20px !important;
+    }
+}
 .d-flex-input{
 margin-left: 5px;
 margin-right: 5px;
 width: 250px !important;
+}
+@media only screen and (max-width: 600px) {
+    .d-flex-input{
+         width: 100px !important;
+    }
 }
 .pointer{
 cursor: pointer;
