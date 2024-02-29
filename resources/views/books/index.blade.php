@@ -1,18 +1,22 @@
 @extends('layouts.app')
 
 @section('aside')
-<aside>
-    <form method="GET" action="{{ route('filterBooks') }}">
-        @csrf <!-- Laravelban az aláírás védelméhez -->
-        <input type="checkbox" id="all_genres" name="all_genres" value="all">
-        <label for="all_genre">all</label><br>
-        @foreach($genres as $genre)
-            <input type="checkbox" id="genre_{{ $genre->id }}" name="genres[]" value="{{ $genre->id }}">
-            <label for="genre_{{ $genre->id }}">{{ $genre->name }}</label><br>
-        @endforeach
-        <button class="btn btn-outline-success btn-margin" type="submit">Filter</button>
-    </form>
+<aside class=" aside d-none d-lg-block">
+    @include('inc.sidebar')
 </aside>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Filters</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="aside offcanvas-body">
+        @include('inc.sidebar')
+    </div>
+</div>
+
+<button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+    <i class="fa-solid fa-circle-arrow-right "></i>
+</button>
 @endsection
 @section('content')
 <div class="jumbotron text-center">
