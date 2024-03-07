@@ -115,3 +115,7 @@ margin-left: 50px;
 .description p:first-of-type{
 margin-bottom: 10px !important;
 }
+
+td{
+    max-width: 150px !important;
+}

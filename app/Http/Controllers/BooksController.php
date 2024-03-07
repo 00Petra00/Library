@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Translation;
 use DB;
 
 class BooksController extends Controller
@@ -40,6 +41,75 @@ class BooksController extends Controller
         })->get();}
         $genres = Genre::all();
         return view('books.index', compact('books', 'genres'));
+    }
+
+    public function translate(string $id){
+        $book = Book::find($id);
+
+        // Title fordítás magyar nyelven
+        $titleTranslationHu = Translation::where('language', 'magyar')
+                                            ->where('book_id', $id)
+                                            ->pluck('title_translation')->first();
+
+
+        // Title fordítás német nyelven
+        $titleTranslationDe = Translation::where('language', 'deutsch')
+                                            ->where('book_id', $id)
+                                            ->pluck('title_translation')->first();
+
+
+
+        // Description fordítás magyar nyelven
+        $descriptionTranslationHu = Translation::where('language', 'magyar')
+                                            ->where('book_id', $id)
+                                            ->pluck('description_translation')->first();
+
+
+        // Description fordítás német nyelven
+        $descriptionTranslationDe = Translation::where('language', 'deutsch')
+                                            ->where('book_id', $id)
+                                            ->pluck('description_translation')->first();
+
+
+        return view('books.translate')->withBook($book)->withTitleTranslationHu($titleTranslationHu)->withTitleTranslationDe($titleTranslationDe)
+                                                        ->withDescriptionTranslationHu($descriptionTranslationHu)->withDescriptionTranslationDe($descriptionTranslationDe);
+    }
+
+    public function store_translations(Request $request){
+
+        $fieldName = $request->input('field');
+        $newText = $request->input('value');
+        $language = $request->input('language');
+        $book_id = $request->input('book_id');
+
+        $translation = Translation::where('book_id', $book_id)
+                                    ->where('language', $language)
+                                    ->first();
+        if(!$translation){
+            $translation = new Translation;
+            $default = true;
+        }
+        else{$default = false;}
+
+        if($fieldName == 'title'){
+            $translation->title_translation = $newText;
+            if($default){
+                $translation->description_translation = '';
+            }
+        }
+        else{
+            $translation->description_translation = $newText;
+            if($default){
+                $translation->title_translation = '';
+            }
+        }
+
+        $translation->language = $language;
+        $translation->book_id = $book_id;
+
+        $translation->save();
+
+        return response()->json(['success' => true]);
     }
 
     /**
