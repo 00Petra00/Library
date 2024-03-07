@@ -18,4 +18,5 @@ Route::get('/', 'App\Http\Controllers\BooksController@index');
 Route::resource('books', BooksController::class);
 Route::get('/filter-books', [BooksController::class, 'filter'])->name('filterBooks');
 Route::get('/books/{id}/translate', [BooksController::class, 'translate']);
-Route::post('/store-translations', [BooksController::class, 'store_translations']);
+Route::post('/store-translations', [BooksController::class, 'storeTranslations']);
+Route::post('/add-language', [BooksController::class, 'addLanguage']);

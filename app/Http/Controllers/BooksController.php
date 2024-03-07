@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Translation;
+use App\Models\Language;
 use DB;
 
 class BooksController extends Controller
@@ -45,37 +46,13 @@ class BooksController extends Controller
 
     public function translate(string $id){
         $book = Book::find($id);
+        $languages = Language::all();
+        $translations = Translation::all();
 
-        // Title fordítás magyar nyelven
-        $titleTranslationHu = Translation::where('language', 'magyar')
-                                            ->where('book_id', $id)
-                                            ->pluck('title_translation')->first();
-
-
-        // Title fordítás német nyelven
-        $titleTranslationDe = Translation::where('language', 'deutsch')
-                                            ->where('book_id', $id)
-                                            ->pluck('title_translation')->first();
-
-
-
-        // Description fordítás magyar nyelven
-        $descriptionTranslationHu = Translation::where('language', 'magyar')
-                                            ->where('book_id', $id)
-                                            ->pluck('description_translation')->first();
-
-
-        // Description fordítás német nyelven
-        $descriptionTranslationDe = Translation::where('language', 'deutsch')
-                                            ->where('book_id', $id)
-                                            ->pluck('description_translation')->first();
-
-
-        return view('books.translate')->withBook($book)->withTitleTranslationHu($titleTranslationHu)->withTitleTranslationDe($titleTranslationDe)
-                                                        ->withDescriptionTranslationHu($descriptionTranslationHu)->withDescriptionTranslationDe($descriptionTranslationDe);
+        return view('books.translate')->withBook($book)->withLanguages($languages)->withTranslations($translations);
     }
 
-    public function store_translations(Request $request){
+    public function storeTranslations(Request $request){
 
         $fieldName = $request->input('field');
         $newText = $request->input('value');
@@ -108,6 +85,16 @@ class BooksController extends Controller
         $translation->book_id = $book_id;
 
         $translation->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function addLanguage(Request $request){
+        // Validáció hozzáadása szükséges
+
+        $newLanguage = new Language();
+        $newLanguage->language = $request->input('newLanguageName');
+        $newLanguage->save();
 
         return response()->json(['success' => true]);
     }

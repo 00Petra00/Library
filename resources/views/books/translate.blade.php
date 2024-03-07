@@ -6,8 +6,9 @@
       <tr>
         <th scope="col"></th>
         <th scope="col">English</th>
-        <th scope="col">Magyar</th>
-        <th scope="col">Deutsch</th>
+        @foreach($languages as $language)
+             <th scope="col">{{ ucfirst($language->language) }}</th>
+         @endforeach
         <th scope="col"><i class="fa-solid fa-plus" id="addColumn"></i></th>
       </tr>
     </thead>
@@ -15,14 +16,28 @@
       <tr>
         <th scope="row">Title</th>
         <td>{{$book->title}}</td>
-        <td class="editable" contenteditable="true">{{$titleTranslationHu ?? 'Nincs fordítás'}} </td>
-        <td class="editable" contenteditable="true">{{$titleTranslationDe ?? 'Nincs fordítás'}} </td>
+        @foreach($languages as $language)
+        <td class="editable" contenteditable="true">
+            @foreach($translations as $translation)
+                @if($translation->language === $language->language && $translation->book_id === $book->id)
+                        {{ $translation->title_translation }}
+                @endif
+            @endforeach
+        </td>
+        @endforeach
       </tr>
       <tr>
         <th scope="row">Description</th>
         <td>{{$book->description}}</td>
-        <td class="editable" contenteditable="true">{{$descriptionTranslationHu ?? 'Nincs fordítás'}}</td>
-        <td class="editable" contenteditable="true">{{$descriptionTranslationDe ?? 'Nincs fordítás'}}</td>
+        @foreach($languages as $language)
+        <td class="editable" contenteditable="true">
+            @foreach($translations as $translation)
+                @if($translation->language === $language->language && $translation->book_id === $book->id)
+                        {{ $translation->description_translation }}
+                @endif
+            @endforeach
+        </td>
+        @endforeach
       </tr>
     </tbody>
   </table>
@@ -35,7 +50,7 @@
             var secondTh = $('#editableTable thead th').eq($(this).index());
             var language = secondTh.text().trim().toLowerCase();
             var bookId = {{ $book->id }};
-            var fieldName = $(this).closest('tr').find('th').eq(0).text().trim().toLowerCase(); // Get the field name from the first column header
+            var fieldName = $(this).closest('tr').find('th').eq(0).text().trim().toLowerCase();
 
             console.log('Új érték: ' + newText + ', Cella azonosító: ' + cellId);
             console.log('NYelv: ' + language);
@@ -59,6 +74,35 @@
                 console.error('Error saving translation:', xhr.responseText);
             }
             });
+        });
+
+        $('#addColumn').click(function() {
+            var newLanguage = prompt('Enter the new language:');
+            if (newLanguage) {
+                // Add column header
+                $('<th scope="col">' + newLanguage + '</th>').insertBefore('#editableTable thead th:last');
+
+                // Add empty editable cells
+                $('#editableTable tbody tr').each(function() {
+                    $(this).append('<td class="editable" contenteditable="true">Nincs fordítás</td>');
+                });
+
+                $.ajax({
+                    url: '/add-language',
+                    type: 'POST',
+                    data: {
+                        newLanguageName: newLanguage,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        console.log('New language added successfully!');
+                        console.log(response);
+                    },
+                    error: function(xhr) {
+                        console.error('Error adding new language:', xhr.responseText);
+                    }
+                });
+            }
         });
     });
     </script>
