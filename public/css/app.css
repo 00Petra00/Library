@@ -121,7 +121,15 @@ td{
 #addColumn:hover{
     cursor: pointer;
 }
+.removeColumn:hover{
+    cursor: pointer;
+}
 .editable[contenteditable="true"]:hover {
     background-color: rgb(216, 218, 218) !important;
     cursor: pointer;
+}
+.fa-minus{
+    margin-left: 10px;
+    display: inline-block !important;
+    vertical-align: middle !important;
 }

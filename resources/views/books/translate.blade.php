@@ -7,7 +7,7 @@
         <th scope="col"></th>
         <th scope="col">English</th>
         @foreach($languages as $language)
-             <th scope="col">{{ ucfirst($language->language) }}</th>
+             <th scope="col">{{ ucfirst($language->language) }} <i class="fa-solid fa-minus removeColumn" ></i></th>
          @endforeach
         <th scope="col"><i class="fa-solid fa-plus" id="addColumn"></i></th>
       </tr>
@@ -18,11 +18,22 @@
         <td>{{$book->title}}</td>
         @foreach($languages as $language)
         <td class="editable" contenteditable="true">
+            @php
+            $translationFound = false;
+            @endphp
             @foreach($translations as $translation)
                 @if($translation->language === $language->language && $translation->book_id === $book->id)
+                    @if(!empty($translation->title_translation))
                         {{ $translation->title_translation }}
+                        @php
+                            $translationFound = true;
+                        @endphp
+                    @endif
                 @endif
             @endforeach
+            @if(!$translationFound)
+                /
+            @endif
         </td>
         @endforeach
       </tr>
@@ -33,9 +44,17 @@
         <td class="editable" contenteditable="true">
             @foreach($translations as $translation)
                 @if($translation->language === $language->language && $translation->book_id === $book->id)
+                    @if(!empty($translation->description_translation))
                         {{ $translation->description_translation }}
+                        @php
+                            $translationFound = true;
+                        @endphp
+                    @endif
                 @endif
             @endforeach
+            @if(!$translationFound)
+                /
+            @endif
         </td>
         @endforeach
       </tr>
@@ -80,11 +99,12 @@
             var newLanguage = prompt('Enter the new language:');
             if (newLanguage) {
                 // Add column header
-                $('<th scope="col">' + newLanguage + '</th>').insertBefore('#editableTable thead th:last');
+                var capitalizedLanguage = newLanguage.charAt(0).toUpperCase() + newLanguage.slice(1);
+                $('<th scope="col">' + capitalizedLanguage + '<i class="fa-solid fa-minus removeColumn" ></th>').insertBefore('#editableTable thead th:last');
 
                 // Add empty editable cells
                 $('#editableTable tbody tr').each(function() {
-                    $(this).append('<td class="editable" contenteditable="true">Nincs fordítás</td>');
+                    $(this).append('<td class="editable" contenteditable="true">/</td>');
                 });
 
                 $.ajax({
@@ -102,6 +122,30 @@
                         console.error('Error adding new language:', xhr.responseText);
                     }
                 });
+            }
+        });
+
+        $('.removeColumn').click(function() {
+            var thElement = $(this).closest('th');
+            var confirmDelete = confirm('Are you sure you want to delete this language?');
+            if(confirmDelete){
+                console.log("itt");
+                    $.ajax({
+                        url: '/remove-language',
+                        type: 'POST',
+                        data: {
+                            language_id: {{$language->id}},
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            console.log('Language removed successfully!');
+                            console.log(response);
+                            thElement.remove();
+                        },
+                        error: function(xhr) {
+                            console.error('Error removing language:', xhr.responseText);
+                        }
+                    });
             }
         });
     });

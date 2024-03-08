@@ -44,61 +44,6 @@ class BooksController extends Controller
         return view('books.index', compact('books', 'genres'));
     }
 
-    public function translate(string $id){
-        $book = Book::find($id);
-        $languages = Language::all();
-        $translations = Translation::all();
-
-        return view('books.translate')->withBook($book)->withLanguages($languages)->withTranslations($translations);
-    }
-
-    public function storeTranslations(Request $request){
-
-        $fieldName = $request->input('field');
-        $newText = $request->input('value');
-        $language = $request->input('language');
-        $book_id = $request->input('book_id');
-
-        $translation = Translation::where('book_id', $book_id)
-                                    ->where('language', $language)
-                                    ->first();
-        if(!$translation){
-            $translation = new Translation;
-            $default = true;
-        }
-        else{$default = false;}
-
-        if($fieldName == 'title'){
-            $translation->title_translation = $newText;
-            if($default){
-                $translation->description_translation = '';
-            }
-        }
-        else{
-            $translation->description_translation = $newText;
-            if($default){
-                $translation->title_translation = '';
-            }
-        }
-
-        $translation->language = $language;
-        $translation->book_id = $book_id;
-
-        $translation->save();
-
-        return response()->json(['success' => true]);
-    }
-
-    public function addLanguage(Request $request){
-        // Validáció hozzáadása szükséges
-
-        $newLanguage = new Language();
-        $newLanguage->language = $request->input('newLanguageName');
-        $newLanguage->save();
-
-        return response()->json(['success' => true]);
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -126,7 +71,6 @@ class BooksController extends Controller
             $path = 'images/book_covers/';
             $file->move($path, $filename);
         }
-
 
         $book = new Book;
         $book->title = $request->input('title');

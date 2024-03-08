@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\TranslationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,8 @@ use App\Http\Controllers\BooksController;
 Route::get('/', 'App\Http\Controllers\BooksController@index');
 Route::resource('books', BooksController::class);
 Route::get('/filter-books', [BooksController::class, 'filter'])->name('filterBooks');
-Route::get('/books/{id}/translate', [BooksController::class, 'translate']);
-Route::post('/store-translations', [BooksController::class, 'storeTranslations']);
-Route::post('/add-language', [BooksController::class, 'addLanguage']);
+Route::get('/books/{id}/translate', [TranslationsController::class, 'translate']);
+Route::post('/store-translations', [TranslationsController::class, 'storeTranslations']);
+Route::post('/add-language', [TranslationsController::class, 'addLanguage']);
+Route::post('/remove-language', [TranslationsController::class, 'removeLanguage']);
+
