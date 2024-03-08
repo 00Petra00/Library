@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Translation;
+use App\Models\Language;
 use DB;
 
 class BooksController extends Controller
@@ -69,7 +71,6 @@ class BooksController extends Controller
             $path = 'images/book_covers/';
             $file->move($path, $filename);
         }
-
 
         $book = new Book;
         $book->title = $request->input('title');
