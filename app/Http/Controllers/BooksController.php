@@ -70,6 +70,9 @@ class BooksController extends Controller
             $filename = time().'.'.$extension;
             $path = 'images/book_covers/';
             $file->move($path, $filename);
+        }else {
+            $filename = 'cs.png';
+            $path = 'images/book_covers/';
         }
 
         $book = new Book;
