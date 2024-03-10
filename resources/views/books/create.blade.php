@@ -42,7 +42,9 @@
         </div>
     </div>
     {{Form::submit('Submit', ['class' => 'btn btn-outline-success btn-margin'])}}
+    <a href="/" class="btn btn-outline-secondary btn-margin">Go Back</a>
 {!! Form::close() !!}
+
 
 <script>
     $(document).ready(function(){

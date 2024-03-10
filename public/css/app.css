@@ -28,15 +28,6 @@ h5 {
     margin-top: 15px;
     margin-bottom: 15px;
 }
-.flag{
-    height: 30px;
-    width: 50px;
-    margin-right: 10px;
-}
-.flags{
-    right: 10px;
-    position: absolute;
-}
 .aside {
     float: left;
     color: #fff;
@@ -118,6 +109,11 @@ margin-bottom: 10px !important;
 td{
     max-width: 150px !important;
 }
+@media only screen and (max-width: 600px) {
+    td{
+        min-width: 150px !important;
+    }
+}
 #addColumn:hover{
     cursor: pointer;
 }
@@ -133,3 +129,4 @@ td{
     display: inline-block !important;
     vertical-align: middle !important;
 }
+

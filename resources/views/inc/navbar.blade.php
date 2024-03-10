@@ -9,16 +9,14 @@
                 <a class="nav-link" href="/books/create">Create Book</a>
                 </li>
             </ul>
+            @if(request()->is('/') || request()->is('filter-books'))
             {!! Form::open(['action' => ['App\Http\Controllers\BooksController@index'], 'method' => 'GET']) !!}
             <div class="d-flex">
                 {{Form::text('search','' ,['class' => 'form-control d-flex-input', 'placeholder' => 'Search books, authors, publishers'])}}
                 {{Form::submit('Submit', ['class' => 'btn btn-outline-success'])}}
             </div>
             {!! Form::close() !!}
-            {{-- <div class="flags">
-                <img class="flag" src="/images/flags/hu_flag.jpg">
-                <img class="flag" src="/images/flags/en_flag.jpg">
-            </div> --}}
+            @endif
         </div>
     </div>
   </nav>

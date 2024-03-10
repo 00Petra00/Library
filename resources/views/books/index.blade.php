@@ -15,7 +15,7 @@
 </div>
 
 <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
-    <i class="fa-solid fa-circle-arrow-right "></i>
+    <i class="fa-solid fa-circle-arrow-right fa-lg"></i>
 </button>
 @endsection
 @section('content')
