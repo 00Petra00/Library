@@ -23,11 +23,10 @@
     </div>
     <div class="form-group">
         {{Form::label('year_of_publication','Year of publication')}}
-        {{Form::number('year_of_publication', $book->year_of_publication,['class' => 'form-control', 'placeholder' => '2008'])}}
+        {{Form::number('year_of_publication', $book->year_of_publication,['class' => 'form-control', 'placeholder' => '2008', 'min' => '1800'])}}
     </div>
     <div class="form-group">
         {{Form::label('genre','Genre')}}
-        {{-- {{Form::text('genre', '',['class' => 'form-control', 'placeholder' => 'fantasy'])}} --}}
         <select class="form-control" id="genres" name="selectedGenres[]" multiple="multiple">
             @foreach($genres as $genre)
             <option value="{{ $genre->id }}" {{ in_array($genre->id, $currGenres) ? 'selected' : '' }}>
@@ -38,7 +37,6 @@
     </div>
     <div class="form-group">
         {{Form::label('book_cover','Book Cover')}}
-        {{-- {{Form::text('book_cover', $book->book_cover,['class' => 'form-control', 'placeholder' => ''])}} --}}
         <div>
             <input type="file" name="book_cover" class="form-controler">
             <p>Current Image:</p>
@@ -68,7 +66,7 @@
             contentType: false,
             success: function(response) {
                 console.log(response);
-                alert('Book Updated');
+                alert('Book updated successfully');
 
                 var newBookCoverUrl = response.book_cover;
                 $('#bookCover').attr('src', newBookCoverUrl);
@@ -76,6 +74,7 @@
             },
             error: function(xhr, status, error) {
                 console.error(error);
+                alert('Failed to update book');
             }
         });
     });

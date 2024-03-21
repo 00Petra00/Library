@@ -23,11 +23,10 @@
     </div>
     <div class="form-group">
         {{Form::label('year_of_publication','Year of publication')}}
-        {{Form::number('year_of_publication', '',['class' => 'form-control', 'placeholder' => '2008'])}}
+        {{Form::number('year_of_publication', '',['class' => 'form-control', 'placeholder' => '2008', 'min' => "1800"])}}
     </div>
     <div class="form-group">
         {{Form::label('genre','Genre')}}
-        {{-- {{Form::text('genre', '',['class' => 'form-control', 'placeholder' => 'fantasy'])}} --}}
         <select class="form-control" id="genres" name="selectedGenres[]" multiple="multiple">
             @foreach($genres as $genre)
             <option value="{{ $genre->id }}">{{ $genre->name }}</option>
@@ -36,7 +35,6 @@
     </div>
     <div class="form-group">
         {{Form::label('book_cover','Book Cover')}}
-        {{-- {{Form::file('book_cover', '',['class' => 'form-control'])}} --}}
         <div>
         <input type="file" name="book_cover" class="form-controler">
         </div>

@@ -8,6 +8,7 @@ use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Translation;
 use App\Models\Language;
+use Illuminate\Support\Facades\Date;
 use DB;
 
 class BooksController extends Controller
@@ -24,7 +25,6 @@ class BooksController extends Controller
                             ->orWhere('author', 'like', '%'.$search.'%')
                             ->orWhere('publisher', 'like', '%'.$search.'%')
                             ->get();
-            //return $books;
         }
 
         $genres = Genre::orderBy('name')->get();
@@ -58,9 +58,14 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
+        $currentYear = Date::now()->year;
+
         $this->validate($request, [
             'title' => 'required',
             'author' => 'required',
+            'publisher' => 'required',
+            'year_of_publication' => 'required|numeric|min:1800|max:'.$currentYear,
+            'desscription' => 'nullable',
             'book_cover' => 'nullable|mimes:png,jpg,jpeg,webp'
         ]);
 
@@ -89,7 +94,11 @@ class BooksController extends Controller
             $book->genres()->sync($selectedGenres);
         }
 
-        return redirect('/books')->with('success', 'Book Created');
+        if ($book->wasRecentlyCreated) {
+            return redirect('/books')->with('success', 'Book Created');
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Failed to create book');
+        }
     }
 
     /**
@@ -122,9 +131,14 @@ class BooksController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $currentYear = Date::now()->year;
+
         $this->validate($request, [
             'title' => 'required',
             'author' => 'required',
+            'publisher' => 'required',
+            'year_of_publication' => 'required|numeric|min:1800|max:'.$currentYear,
+            'desscription' => 'nullable',
             'book_cover' => 'nullable|mimes:png,jpg,jpeg,webp'
         ]);
 
@@ -160,8 +174,11 @@ class BooksController extends Controller
             $book->genres()->sync($selectedGenres);
         }
 
-        return response()->json(['success' => true, 'message' => 'Book updated successfully', 'book_cover' => asset($book->book_cover)]);
-       // return redirect('/books')->with('success', 'Book Updated');
+        if ($book->wasRecentlyCreated) {
+            return response()->json(['success' => true, 'message' => 'Book updated successfully', 'book_cover' => asset($book->book_cover)]);
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Failed to update book');
+        }
 
     }
 

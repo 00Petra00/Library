@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('publisher');
             $table->year('year_of_publication');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('book_cover')->nullable();
             $table->timestamps();
         });
