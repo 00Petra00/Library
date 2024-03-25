@@ -76,7 +76,7 @@
             console.log(fieldName);
 
             $.ajax({
-            url: '/store-translations',
+            url: '/api/store-translations',
             type: 'POST',
             data: {
                 language: language,
@@ -108,7 +108,7 @@
                 });
 
                 $.ajax({
-                    url: '/add-language',
+                    url: '/api/add-language',
                     type: 'POST',
                     data: {
                         newLanguageName: newLanguage,
@@ -117,9 +117,11 @@
                     success: function(response) {
                         console.log('New language added successfully!');
                         console.log(response);
+                        alert('New language added successfully');
                     },
                     error: function(xhr) {
                         console.error('Error adding new language:', xhr.responseText);
+                        alert('Error adding new language');
                     }
                 });
             }
@@ -131,7 +133,7 @@
             if(confirmDelete){
                 console.log("itt");
                     $.ajax({
-                        url: '/remove-language',
+                        url: '/api/remove-language',
                         type: 'POST',
                         data: {
                             language_id: {{$language->id}},
@@ -141,9 +143,11 @@
                             console.log('Language removed successfully!');
                             console.log(response);
                             thElement.remove();
+                            alert('Language removed successfully');
                         },
                         error: function(xhr) {
                             console.error('Error removing language:', xhr.responseText);
+                            alert('Error removing language');
                         }
                     });
             }

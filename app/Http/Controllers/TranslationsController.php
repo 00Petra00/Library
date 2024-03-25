@@ -15,7 +15,8 @@ class TranslationsController extends Controller
         $languages = Language::all();
         $translations = Translation::all();
 
-        return view('books.translate')->withBook($book)->withLanguages($languages)->withTranslations($translations);
+        $errors = null;
+        return view('books.translate')->withBook($book)->withLanguages($languages)->withTranslations($translations)->withErrors($errors);
     }
 
     public function storeTranslations(Request $request){

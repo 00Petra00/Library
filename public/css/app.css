@@ -38,6 +38,11 @@ h5 {
     border-top-right-radius: 80px;
     margin: 50px 50px 0 0 !important;
 }
+@media only screen and (max-width: 900px) {
+    .aside{
+        margin-top: 0 !important;
+    }
+}
 .aside label {
 font-size: 16px;
 color: black;
@@ -129,7 +134,3 @@ td{
     display: inline-block !important;
     vertical-align: middle !important;
 }
-/* .alert{
-    background-color: ;
-} */
-
