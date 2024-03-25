@@ -65,16 +65,18 @@
             processData: false,
             contentType: false,
             success: function(response) {
-                console.log(response);
-                alert('Book updated successfully');
+                let successTitle = 'Success';
+                let successMessage = 'Book updated successfully';
+                $(document).trigger('showrModal', [successTitle, successMessage]);
 
                 var newBookCoverUrl = response.book_cover;
                 $('#bookCover').attr('src', newBookCoverUrl);
 
             },
             error: function(xhr, status, error) {
-                console.error(error);
-                alert('Failed to update book');
+                let errorTitle = 'Error';
+                let errorMessage = 'Failed to update book';
+                $(document).trigger('showrModal', [errorTitle, errorMessage, true]);
             }
         });
     });

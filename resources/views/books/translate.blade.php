@@ -86,11 +86,14 @@
                 _token: '{{ csrf_token() }}'
             },
             success: function(response) {
-                console.log('Translation saved successfully!');
-                console.log(response);
+                let successTitle = 'Success';
+                let successMessage = 'Translation saved successfully';
+                $(document).trigger('showrModal', [successTitle, successMessage]);
             },
             error: function(xhr) {
-                console.error('Error saving translation:', xhr.responseText);
+                let errorTitle = 'Error';
+                let errorMessage = 'Error saving translation';
+                $(document).trigger('showrModal', [errorTitle, errorMessage, false]);
             }
             });
         });
@@ -115,13 +118,14 @@
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
-                        console.log('New language added successfully!');
-                        console.log(response);
-                        alert('New language added successfully');
+                        let successTitle = 'Success';
+                        let successMessage = 'New language added successfully';
+                        $(document).trigger('showrModal', [successTitle, successMessage]);
                     },
                     error: function(xhr) {
-                        console.error('Error adding new language:', xhr.responseText);
-                        alert('Error adding new language');
+                        let errorTitle = 'Error';
+                        let errorMessage = 'Error adding new language';
+                        $(document).trigger('showrModal', [errorTitle, errorMessage, false]);
                     }
                 });
             }
@@ -140,14 +144,15 @@
                             _token: '{{ csrf_token() }}'
                         },
                         success: function(response) {
-                            console.log('Language removed successfully!');
-                            console.log(response);
                             thElement.remove();
-                            alert('Language removed successfully');
+                            let successTitle = 'Success';
+                            let successMessage = 'Language removed successfully';
+                            $(document).trigger('showrModal', [successTitle, successMessage]);
                         },
                         error: function(xhr) {
-                            console.error('Error removing language:', xhr.responseText);
-                            alert('Error removing language');
+                            let errorTitle = 'Error';
+                            let errorMessage = 'Error removing language';
+                            $(document).trigger('showrModal', [errorTitle, errorMessage, false]);
                         }
                     });
             }

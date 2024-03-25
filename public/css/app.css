@@ -13,8 +13,12 @@ h5 {
     border-color: #f3b359 !important;
 }
 .btn-danger{
-    background-color:#f49c20 !important;
-    border-color: #f49c20 !important;
+    background-color:#c74d3a !important;
+    border-color: #c74d3a !important;
+}
+.btn-success{
+    background-color:#83bd56 !important;
+    border-color: #83bd56 !important;
 }
 .btn-outline-success{
     border-color: black !important;
