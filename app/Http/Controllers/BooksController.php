@@ -188,8 +188,10 @@ class BooksController extends Controller
     public function destroy(string $id)
     {
         $book = Book::find($id);
-        if(File::exists($book->book_cover)){
-            File::delete($book->book_cover);
+        if ($book && $book->book_cover != 'images/book_covers/cs.png') {
+            if(File::exists($book->book_cover)){
+                File::delete($book->book_cover);
+            }
         }
         $book->delete();
 

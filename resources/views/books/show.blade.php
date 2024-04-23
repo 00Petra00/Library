@@ -18,12 +18,11 @@
      <h6>Last update: {{$book->updated_at}}</h6>
 
     <div  aria-label="Basic example">
-        {!! Form::open(['action' => ['App\Http\Controllers\BooksController@destroy', $book->id], 'method' => 'POST']) !!}
+        {!! Form::open(['action' => ['App\Http\Controllers\BooksController@destroy', $book->id], 'method' => 'POST', 'id' => 'deleteForm']) !!}
                 <a href="{{$book->id}}/edit" class="btn btn-outline-secondary">Edit</a>
                 <a href="/api/books/{{$book->id}}/translate" class="btn btn-outline-primary">Translate</a>
             {{Form::hidden('_method', 'DELETE')}}
-            {{Form::submit('Delete', ['class' => 'btn btn-outline-danger', 'onclick' => "return confirm('Are you sure you want to delete this book?')"])}}
-            {{-- {{Form::submit('Delete', ['class' => 'btn btn-outline-danger', 'onclick' => "showDeleteModal(); return false;"])}} --}}
+            {{Form::submit('Delete', ['class' => 'btn btn-outline-danger', 'onclick' => "confirmBookDelete(); return false;"])}}
         {!! Form::close() !!}
     </div>
     <a href="/" class="btn btn-outline-secondary btn-margin">Go Back</a>

@@ -63,7 +63,7 @@ class TranslationsController extends Controller
         $newLanguage->language = $request->input('newLanguageName');
         $newLanguage->save();
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'languageId' => $newLanguage['id']]);
     }
 
     public function removeLanguage(Request $request)
