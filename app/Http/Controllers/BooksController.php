@@ -18,6 +18,7 @@ class BooksController extends Controller
      */
     public function index()
     {
+        $selectedGenres = [];
         $books = Book::all();
         if(request()->has('search')){
             $search = request()->get('search');
@@ -29,19 +30,20 @@ class BooksController extends Controller
 
         $genres = Genre::orderBy('name')->get();
 
-        return view('books.index')->withBooks($books)->withGenres($genres);
+        return view('books.index')->withBooks($books)->withGenres($genres)->withSelectedGenres($selectedGenres);
     }
 
     public function filter(Request $request)
     {
-        $selectedGenres = $request->input('genres');
-        if(request()->has('all_genres')){$books = Book::all();}
+        $selectedGenres = $request->input('genres', []);
+
+        if(request()->has('all_genres')){$books = Book::all(); $selectedGenres = ['all'];}
         else{
         $books = Book::whereHas('genres', function ($query) use ($selectedGenres) {
             $query->whereIn('id', $selectedGenres);
         })->get();}
         $genres = Genre::all();
-        return view('books.index', compact('books', 'genres'));
+        return view('books.index', compact('books', 'genres', 'selectedGenres'));
     }
 
     /**

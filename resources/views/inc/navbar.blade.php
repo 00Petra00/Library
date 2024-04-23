@@ -9,7 +9,7 @@
                 <a class="nav-link" href="/books/create">Create Book</a>
                 </li>
             </ul>
-            @if(request()->is('/') || request()->is('filter-books'))
+            @if(request()->is('/') || request()->is('filter-books') || (request()->is('books') && request()->has('search')))
             {!! Form::open(['action' => ['App\Http\Controllers\BooksController@index'], 'method' => 'GET']) !!}
             <div class="d-flex">
                 {{Form::text('search','' ,['class' => 'form-control d-flex-input', 'placeholder' => 'Search books, authors, publishers'])}}
