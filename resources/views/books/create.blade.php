@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Create Book</h1>
-    {!! Form::open(['action' => ['App\Http\Controllers\BooksController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+    {!! Form::open(['id' => 'createForm', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
     <div class="form-group ">
         {{Form::label('title','Title')}}
         <div>
@@ -47,6 +47,40 @@
 <script>
     $(document).ready(function(){
         $('#genres').select2();
+    });
+
+    $('#createForm').submit(function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            url: '{{ action('App\Http\Controllers\BooksController@store')}}',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                let successTitle = 'Success';
+                let successMessage = 'Book added successfully';
+                $(document).trigger('showrModal', [successTitle, successMessage]);
+                setTimeout(function() {
+                window.location.href = '/books';
+            }, 1800);
+            },
+            error: function(xhr, status, error) {
+                let errorMessage = 'Failed to add book';
+
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    errorMessage = '';
+                    $.each(xhr.responseJSON.errors, function(key, value) {
+                        errorMessage += value + '\n'; // TODO új sor
+                    });
+                }else if (xhr.statusText) {
+                    errorMessage = xhr.statusText;
+                }
+
+                $(document).trigger('showrModal', ['Error', errorMessage, true]);
+            }
+        });
     });
 </script>
 @endsection

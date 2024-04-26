@@ -33,6 +33,24 @@
 </div>
 
 <script>
+    $(document).ready(function() {
+    var successMessage = "{{ session('success') }}";
+    var errorMessage = "{{ session('error') }}";
+
+    if (successMessage) {
+        $('.modal-title').text('Success');
+        $('.modal-body').text(successMessage);
+
+        $('#modal').modal('show');
+    }
+    else if (errorMessage) {
+        $('.modal-title').text('Error');
+        $('.modal-body').text(errorMessage);
+
+        $('#deleteModal').modal('show');
+    }
+    });
+
     $(document).on('showrModal', function(event, title, message, error = false) {
         $('#modal .modal-title').text(title);
         $('#modal .modal-body').text(message);

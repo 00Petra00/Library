@@ -76,6 +76,13 @@
             error: function(xhr, status, error) {
                 let errorTitle = 'Error';
                 let errorMessage = 'Failed to update book';
+
+                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    $.each(xhr.responseJSON.errors, function(key, value) {
+                        errorMessage = value ;
+                    });
+                }
+
                 $(document).trigger('showrModal', [errorTitle, errorMessage, true]);
             }
         });

@@ -197,6 +197,6 @@ class BooksController extends Controller
         }
         $book->delete();
 
-        return redirect('/books')->with('success', 'Book Removed');
+        return redirect('/books')->with('success', 'Book Removed successfully');
     }
 }
