@@ -78,9 +78,12 @@
                 let errorMessage = 'Failed to update book';
 
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    errorMessage = '';
                     $.each(xhr.responseJSON.errors, function(key, value) {
-                        errorMessage = value ;
+                        errorMessage += value ;
                     });
+                }else if (xhr.statusText) {
+                    errorMessage = xhr.statusText;
                 }
 
                 $(document).trigger('showrModal', [errorTitle, errorMessage, true]);

@@ -51,27 +51,35 @@ class TranslationsController extends Controller
         $translation->language = $language;
         $translation->book_id = $book_id;
 
-        $translation->save();
+        $saved = $translation->save();
 
-        return response()->json(['success' => true]);
+        if($saved){
+        return response()->json(['success' => true]);}
+
+        App::abort(500, 'Error');
     }
 
     public function addLanguage(Request $request){
-        // TODO Validáció hozzáadása szükséges
 
         $newLanguage = new Language();
         $newLanguage->language = $request->input('newLanguageName');
-        $newLanguage->save();
+        $saved = $newLanguage->save();
 
-        return response()->json(['success' => true, 'languageId' => $newLanguage['id']]);
+        if($saved){
+        return response()->json(['success' => true, 'languageId' => $newLanguage['id']]);}
+
+        App::abort(500, 'Error');
     }
 
     public function removeLanguage(Request $request)
     {
         $language = Language::find($request->language_id);
-        $language->delete();
+        $deleted = $language->delete();
 
-        return response()->json(['success' => true]);
+        if($deleted){
+        return response()->json(['success' => true]);}
+
+        App::abort(500, 'Error');
     }
 
 }

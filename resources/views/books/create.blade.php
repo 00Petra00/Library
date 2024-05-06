@@ -72,7 +72,7 @@
                 if (xhr.responseJSON && xhr.responseJSON.errors) {
                     errorMessage = '';
                     $.each(xhr.responseJSON.errors, function(key, value) {
-                        errorMessage += value + '\n'; // TODO új sor
+                        errorMessage += value ;
                     });
                 }else if (xhr.statusText) {
                     errorMessage = xhr.statusText;

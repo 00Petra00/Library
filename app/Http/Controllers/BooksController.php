@@ -208,6 +208,9 @@ class BooksController extends Controller
         }
         $book->delete();
 
-        return redirect('/books')->with('success', 'Book Removed successfully');
+        if($deleted){
+        return redirect('/books')->with('success', 'Book Removed successfully');}
+
+        App::abort(500, 'Error');
     }
 }
