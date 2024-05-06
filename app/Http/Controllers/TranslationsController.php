@@ -57,7 +57,7 @@ class TranslationsController extends Controller
     }
 
     public function addLanguage(Request $request){
-        // Validáció hozzáadása szükséges
+        // TODO Validáció hozzáadása szükséges
 
         $newLanguage = new Language();
         $newLanguage->language = $request->input('newLanguageName');

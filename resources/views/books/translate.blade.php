@@ -66,13 +66,35 @@
   <a href="/books/{{$book->id}}" class="btn btn-outline-secondary btn-margin">Go Back</a>
   <script>
     $(document).ready(function() {
+        var cellText
+        $('#editableTable td.editable').on('click', function() {
+            $(this).data('originalText', $(this).text().trim());
+
+            cellText = $(this).text().trim();
+
+            if (cellText === '/') {
+                $(this).empty();
+            }
+        });
+
         $('#editableTable td.editable').on('blur', function() {
-            var newText = $(this).text();
+            var newText = $(this).text().trim();
+            var originalText = $(this).data('originalText');
+
+            if (newText === originalText) { return;}
             var cellId = $(this).closest('tr').index() + '-' + $(this).index();
             var secondTh = $('#editableTable thead th').eq($(this).index());
             var language = secondTh.text().trim().toLowerCase();
             var bookId = {{ $book->id }};
             var fieldName = $(this).closest('tr').find('th').eq(0).text().trim().toLowerCase();
+
+            if (newText === '') {
+                newText = '/';
+                $(this).text('/');
+                if(cellText === '/'){
+                    return;
+                }
+            }
 
             $.ajax({
             url: '/api/store-translations',
@@ -95,6 +117,7 @@
                 $(document).trigger('showrModal', [errorTitle, errorMessage, true]);
             }
             });
+
         });
 
         $('#addColumn').click(function() {
@@ -102,8 +125,6 @@
             if (!newLanguage) {
                 return;
             }
-
-
 
             $.ajax({
                 url: '/api/add-language',
