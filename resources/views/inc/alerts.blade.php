@@ -88,7 +88,6 @@
                 $('table').find('tr').each(function() {
                     $(this).find('th, td').eq(columnIndex).remove();
                 });
-                //thElement.remove();
                 let successTitle = 'Success';
                 let successMessage = 'Language removed successfully';
                 $(document).trigger('showrModal', [successTitle, successMessage]);

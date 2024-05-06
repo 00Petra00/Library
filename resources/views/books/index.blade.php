@@ -6,7 +6,6 @@
 </aside>
 <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
     <div class="offcanvas-header">
-        <h3 class="offcanvas-title">Filters</h3>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="aside offcanvas-body">

@@ -1,12 +1,11 @@
 <form id="filterForm" method="GET" action="{{ route('filterBooks') }}">
-    @csrf <!-- Laravelban az aláírás védelméhez -->
+    @csrf
     <input type="checkbox" id="all_genres" name="all_genres" value="all" {{ in_array('all', $selectedGenres) && count($selectedGenres) == 1 ? 'checked' : '' }}>
     <label for="all_genre">All</label><br>
     @foreach($genres as $genre)
         <input type="checkbox" class="genre-checkbox" id="genre_{{ $genre->id }}" name="genres[]" value="{{ $genre->id }}" {{ in_array($genre->id, $selectedGenres) ? 'checked' : '' }}>
         <label for="genre_{{ $genre->id }}">{{ ucfirst($genre->name) }}</label><br>
     @endforeach
-    <button class="btn btn-outline-success btn-margin" type="submit">Filter</button>
 </form>
 
 <script>
