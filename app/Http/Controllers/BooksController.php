@@ -206,7 +206,7 @@ class BooksController extends Controller
                 File::delete($book->book_cover);
             }
         }
-        $book->delete();
+        $deleted = $book->delete();
 
         if($deleted){
         return redirect('/books')->with('success', 'Book Removed successfully');}
